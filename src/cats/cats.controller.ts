@@ -28,22 +28,22 @@ import { Cat } from './entities/cat.entity';
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
-  @ApiCreatedResponse({ type: Cat, description: 'submit new data' })
   @Post()
+  @ApiCreatedResponse({ type: Cat, description: 'submit new data' })
   create(@Body() createCatDto: CreateCatDto): Cat {
     return this.catsService.create(createCatDto);
   }
 
-  @ApiOkResponse({ type: Cat, isArray: true, description: 'desc get all data' })
-  @ApiQuery({ name: 'name', required: false })
   @Get()
+  @ApiOkResponse({ type: Cat, isArray: true, description: 'get all data' })
+  @ApiQuery({ name: 'name', required: false })
   findAll(@Query('name') name: string): Cat[] {
     return this.catsService.findAll(name);
   }
 
+  @Get(':id')
   @ApiOkResponse({ type: Cat, isArray: false, description: 'find data by id' })
   @ApiNotFoundResponse()
-  @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number): Cat {
     const cat = this.catsService.findOne(id);
 
@@ -54,12 +54,12 @@ export class CatsController {
     return cat;
   }
 
+  @Patch(':id')
   @ApiOkResponse({
     type: Cat,
     isArray: false,
     description: 'update data by id',
   })
-  @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateCatDto: UpdateCatDto,
@@ -67,8 +67,8 @@ export class CatsController {
     return this.catsService.update(id, updateCatDto);
   }
 
-  @ApiNoContentResponse()
   @Delete(':id')
+  @ApiNoContentResponse()
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.catsService.remove(id);
   }

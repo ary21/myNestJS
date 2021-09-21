@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { LazyModuleLoader } from '@nestjs/core';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
 import { Cat } from './entities/cat.entity';
@@ -9,6 +10,8 @@ export class CatsService {
     { id: 1, name: 'Billy' },
     { id: 2, name: 'Kitty' },
   ];
+
+  constructor(private lazyModuleLoader: LazyModuleLoader) {}
 
   create(createCatDto: CreateCatDto): Cat {
     const newCat: Cat = { id: Date.now(), ...createCatDto };

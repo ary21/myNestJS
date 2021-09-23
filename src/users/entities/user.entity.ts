@@ -16,6 +16,6 @@ export class User {
   password: string;
 
   @ApiProperty({ required: false })
-  @Column()
+  @Column({ nullable: true })
   code?: string;
 }

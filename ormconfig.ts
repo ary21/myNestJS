@@ -7,10 +7,10 @@ const config: MysqlConnectionOptions = {
   username: 'root',
   password: 'root',
   database: 'mynestjs',
-  entities: ['dist/src/db/entities/*.js'],
-  migrations: ['dist/src/db/migrations/*.js'],
+  entities: ['dist/src/database/entities/*.js'],
+  migrations: ['dist/src/database/migrations/*.js'],
   cli: {
-    migrationsDir: 'src/db/migrations',
+    migrationsDir: 'src/database/migrations',
   },
   synchronize: false,
 };

@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
+import { User } from '../db/entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -19,11 +19,21 @@ export class UsersService {
   }
 
   findAll(): Promise<User[]> {
-    return this.usersRepository.find();
+    return this.usersRepository.find({
+      relations: ['pets'],
+    });
   }
 
   async findOne(id: number): Promise<User> {
-    const user = await this.usersRepository.findOne(id);
+    // const user = await this.usersRepository
+    //   .createQueryBuilder('user')
+    //   .leftJoinAndSelect('pets', 'id', 'name')
+    //   .where('id = :id', { id })
+    //   .getOne();
+
+    const user = await this.usersRepository.findOne(id, {
+      relations: ['pets']
+    });
 
     if (!user) {
       throw new NotFoundException();

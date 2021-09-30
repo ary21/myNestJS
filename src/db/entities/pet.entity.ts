@@ -4,12 +4,15 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { User } from './user.entity';
 
 @Entity()
-export class User {
+export class Pet {
   @ApiProperty()
   @PrimaryGeneratedColumn()
   id: number;
@@ -17,18 +20,6 @@ export class User {
   @ApiProperty()
   @Column()
   name: string;
-
-  @ApiProperty()
-  @Column()
-  password: string;
-
-  @ApiProperty({ required: false })
-  @Column({ nullable: true })
-  code?: string;
-
-  @ApiProperty({ required: false })
-  @Column({ default: false })
-  isActive: boolean;
 
   @CreateDateColumn({
     default: () => 'CURRENT_TIMESTAMP',
@@ -42,4 +33,8 @@ export class User {
 
   @DeleteDateColumn()
   deletedAt?: Date;
+
+  @ManyToOne(() => User, (user) => user.pets)
+  @JoinColumn({ name: 'ownerId' })
+  owner: User;
 }

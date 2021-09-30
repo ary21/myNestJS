@@ -19,7 +19,7 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { User } from './entities/user.entity';
+import { User } from '../db/entities/user.entity';
 
 @ApiTags('Users API')
 @Controller('users')

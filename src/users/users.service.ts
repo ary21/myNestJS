@@ -32,7 +32,7 @@ export class UsersService {
     //   .getOne();
 
     const user = await this.usersRepository.findOne(id, {
-      relations: ['pets']
+      relations: ['pets'],
     });
 
     if (!user) {

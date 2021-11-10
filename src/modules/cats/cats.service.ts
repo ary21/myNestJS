@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { LazyModuleLoader } from '@nestjs/core';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
-import { Cat } from './entities/cat.entity';
+import { Cat } from '../../database/entities/cat.entity';
 
 @Injectable()
 export class CatsService {
